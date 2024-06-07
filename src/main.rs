@@ -7,9 +7,7 @@ use scenes::{
 };
 
 use macroquad::prelude::*;
-use scene_manager:: {
-    GameSceneManager,
-};
+use scene_manager::GameSceneManager;
 
 #[macroquad::main("InputKeys")]
 async fn main() {

@@ -1,5 +1,3 @@
-use macroquad::prelude::*;
-
 pub trait GameScene {
     fn update(&mut self) -> GameSceneState;
     fn draw(&self);
