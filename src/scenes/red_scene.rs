@@ -1,6 +1,6 @@
 use crate::scene_manager::{
     GameScene,
-    GameSceneState,
+    GameSceneTransition,
 };
 use macroquad::prelude::*;
 
@@ -10,7 +10,7 @@ pub struct GameSceneRed {
 }
 
 impl GameScene for GameSceneRed {
-    fn update(&mut self) -> GameSceneState{
+    fn update(&mut self) -> GameSceneTransition{
         if is_key_down(KeyCode::Right) {
             self.x += 1.0;
         }
@@ -26,10 +26,11 @@ impl GameScene for GameSceneRed {
         if is_key_down(KeyCode::Escape) {
             std::process::exit(0);
         }
-        if is_key_pressed(KeyCode::Space) {
-            return GameSceneState::NextScene(0);
+        if is_key_pressed(KeyCode::W) {
+            println!("[RED]: W key pressed from ");
+            return GameSceneTransition::NextScene("start_scene".to_string());
         }
-        GameSceneState::Nothing
+        GameSceneTransition::NoSceneTransition
     }
 
     fn draw(&self) {

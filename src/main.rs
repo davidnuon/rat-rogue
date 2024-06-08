@@ -19,9 +19,10 @@ async fn main() {
 
     let mut scene_manager = GameSceneManager::new();
 
-    scene_manager.add_scene(Box::new(scene));
-    scene_manager.add_scene(Box::new(scene_red));
-
+    scene_manager.add_scene("start_scene".to_string(), Box::new(scene));
+    scene_manager.add_scene("red_scene".to_string(), Box::new(scene_red));
+    scene_manager.set_scene("start_scene".to_string());
+    
     loop {
         clear_background(LIGHTGRAY);
         scene_manager.update();
