@@ -5,8 +5,17 @@ use crate::scene_manager::{
 use macroquad::prelude::*;
 
 pub struct FirstGameScene {
-    pub x: f32,
-    pub y: f32,
+    x: f32,
+    y: f32,
+}
+
+impl FirstGameScene {
+    pub fn new() -> Self {
+        Self {
+            x: 0.0,
+            y: 0.0,
+        }
+    }
 }
 
 impl GameScene for FirstGameScene {
@@ -37,7 +46,7 @@ impl GameScene for FirstGameScene {
 
     fn draw(&self, global_state: &GlobalState) {
         clear_background(LIGHTGRAY);
-        draw_circle(self.x, self.y, 15.0, YELLOW);
+        draw_circle(self.x, self.y, 10.0, YELLOW);
         draw_text("move the ball with arrow keys", 20.0, 20.0, 20.0, DARKGRAY);
     }
 }

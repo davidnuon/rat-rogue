@@ -36,8 +36,8 @@ impl GameSceneManager {
         let y = screen_width() / 2.0;
 
         self.current_scene = match index {
-            AvailebleScenes::StartScene => Some(Box::new(FirstGameScene { x, y })),
-            AvailebleScenes::RedScene => Some(Box::new(GameSceneRed { x, y })),
+            AvailebleScenes::StartScene => Some(Box::new(FirstGameScene::new())),
+            AvailebleScenes::RedScene => Some(Box::new(GameSceneRed::new())),
         };
     }
 
