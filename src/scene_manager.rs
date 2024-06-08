@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use crate::scenes::AvailebleScenes;
 
 pub trait GameScene {
     fn update(&mut self) -> GameSceneTransition;
@@ -6,29 +7,28 @@ pub trait GameScene {
 }
 
 pub enum GameSceneTransition {
-    NextScene(String),
+    NextScene(AvailebleScenes),
     NoSceneTransition,
 }
 
 pub struct GameSceneManager {
-    // scenes: Vec<Box<dyn GameScene>>,
-    scenes: HashMap<String, Box<dyn GameScene>>,
-    current_scene: String,
+    scenes: HashMap<AvailebleScenes, Box<dyn GameScene>>,
+    current_scene: AvailebleScenes,
 }
 
 impl GameSceneManager {
     pub fn new() -> Self {
         Self {
             scenes: HashMap::new(),
-            current_scene: "".to_string(),
+            current_scene: AvailebleScenes::NoScene,
         }
     }
 
-    pub fn add_scene(&mut self, name:String, scene: Box<dyn GameScene>) {
+    pub fn add_scene(&mut self, name:AvailebleScenes, scene: Box<dyn GameScene>) {
         self.scenes.insert(name, scene);
     }
 
-    pub fn set_scene(&mut self, index: String) {
+    pub fn set_scene(&mut self, index: AvailebleScenes) {
         self.current_scene = index;
     }
 

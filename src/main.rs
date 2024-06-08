@@ -4,6 +4,7 @@ mod scenes;
 use scenes::{
     FirstGameScene,
     GameSceneRed,
+    AvailebleScenes
 };
 
 use macroquad::prelude::*;
@@ -19,10 +20,10 @@ async fn main() {
 
     let mut scene_manager = GameSceneManager::new();
 
-    scene_manager.add_scene("start_scene".to_string(), Box::new(scene));
-    scene_manager.add_scene("red_scene".to_string(), Box::new(scene_red));
-    scene_manager.set_scene("start_scene".to_string());
-    
+    scene_manager.add_scene(AvailebleScenes::StartScene, Box::new(scene));
+    scene_manager.add_scene(AvailebleScenes::RedScene, Box::new(scene_red));
+    scene_manager.set_scene(AvailebleScenes::StartScene);
+
     loop {
         clear_background(LIGHTGRAY);
         scene_manager.update();

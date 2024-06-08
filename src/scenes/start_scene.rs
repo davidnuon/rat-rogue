@@ -28,7 +28,7 @@ impl GameScene for FirstGameScene {
         }
         if is_key_pressed(KeyCode::W) {
             println!("[FGS]: W key pressed from ");
-            return GameSceneTransition::NextScene("red_scene".to_string());
+            return GameSceneTransition::NextScene(crate::scenes::AvailebleScenes::RedScene);
         }
         GameSceneTransition::NoSceneTransition
     }

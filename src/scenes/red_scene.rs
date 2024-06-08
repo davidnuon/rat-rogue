@@ -28,7 +28,7 @@ impl GameScene for GameSceneRed {
         }
         if is_key_pressed(KeyCode::W) {
             println!("[RED]: W key pressed from ");
-            return GameSceneTransition::NextScene("start_scene".to_string());
+            return GameSceneTransition::NextScene(crate::scenes::AvailebleScenes::StartScene);
         }
         GameSceneTransition::NoSceneTransition
     }
