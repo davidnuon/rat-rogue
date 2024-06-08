@@ -1,8 +1,10 @@
 use crate::scene_manager::{
     GameScene,
-    GameSceneTransition, GlobalState,
+    GameSceneTransition
 };
 use macroquad::prelude::*;
+
+use crate::game_state::GlobalState;
 
 pub struct FirstGameScene {
     x: f32,
@@ -38,13 +40,12 @@ impl GameScene for FirstGameScene {
             std::process::exit(0);
         }
         if is_key_pressed(KeyCode::W) {
-            println!("[FGS]: W key pressed from ");
             return GameSceneTransition::NextScene(crate::scenes::AvailebleScenes::RedScene);
         }
         GameSceneTransition::NoSceneTransition
     }
 
-    fn draw(&self, global_state: &GlobalState) {
+    fn draw(&self, _global_state: &GlobalState) {
         clear_background(LIGHTGRAY);
         draw_circle(self.x, self.y, 10.0, YELLOW);
         draw_text("move the ball with arrow keys", 20.0, 20.0, 20.0, DARKGRAY);

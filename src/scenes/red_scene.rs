@@ -6,8 +6,8 @@ use macroquad::prelude::*;
 use macroquad::ui::{
     hash, root_ui,
     widgets::{self, Group},
-    Drag, Ui,
 };
+use miniquad::window::screen_size;
 
 pub struct GameSceneRed {
     x: f32,
@@ -36,7 +36,9 @@ impl GameScene for GameSceneRed {
     fn draw(&self, global_state: &GlobalState) {
         clear_background(LIGHTGRAY);
         draw_circle(self.x, self.y, 15.0, RED);
-        draw_text(&format!("{}", global_state.counter), 20.0, 20.0, 20.0, DARKGRAY);
+        draw_text(&format!("{}", global_state.counter), 50.0, 750.0, 400.0, DARKGRAY);
+        draw_text(&format!("w{:?}", screen_size().0), 50.0, 200.0, 200.0, DARKGRAY);
+        draw_text(&format!("h{:?}", screen_size().1), 50.0, 400.0, 200.0, DARKGRAY);
         widgets::Window::new(hash!(), vec2(400., 200.), vec2(320., 400.))
         .label("Shop")
         .titlebar(true)

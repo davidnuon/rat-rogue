@@ -1,13 +1,11 @@
-use macroquad::window::screen_width;
-
 use crate::scenes::{
     AvailebleScenes,
     FirstGameScene,
     GameSceneRed,
 };
-pub struct GlobalState {
-    pub counter: i32,
-}
+
+pub use crate::game_state::GlobalState;
+
 pub trait GameScene {
     fn update(&mut self, global_state: &mut GlobalState) -> GameSceneTransition;
     fn draw(&self, global_state: &GlobalState);
@@ -32,9 +30,6 @@ impl GameSceneManager {
     }
 
     pub fn set_scene(&mut self, index: AvailebleScenes) {
-        let x = screen_width() / 2.0;
-        let y = screen_width() / 2.0;
-
         self.current_scene = match index {
             AvailebleScenes::StartScene => Some(Box::new(FirstGameScene::new())),
             AvailebleScenes::RedScene => Some(Box::new(GameSceneRed::new())),
@@ -60,5 +55,15 @@ impl GameSceneManager {
         } else {
             panic!("Scene not found");
         }
+    }
+
+    #[allow(dead_code)]
+    pub fn get_state(&self) -> &GlobalState {
+        &self.state
+    }
+
+    #[allow(dead_code)]
+    pub fn get_state_mut(&mut self) -> &mut GlobalState {
+        &mut self.state
     }
 }
