@@ -41,6 +41,7 @@ async fn main() {
         let x_pos = (screen_width() - 800.0 * scale) / 2.0;
         let y_pos = (screen_height() - 600.0 * scale) / 2.0;
         let dest_size = vec2(800.0 * scale, 600.0 * scale);
+        clear_background(BLUE);
         draw_texture_ex(
             &render_target.texture,
             x_pos, 
