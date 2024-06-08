@@ -1,3 +1,3 @@
-pub struct GlobalState {
+pub struct GameState {
     pub counter: i32,
 }

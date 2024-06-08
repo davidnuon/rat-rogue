@@ -1,6 +1,6 @@
 use crate::scene_manager::{
     GameScene,
-    GameSceneTransition, GlobalState,
+    GameSceneTransition, GameState,
 };
 use macroquad::prelude::*;
 use macroquad::ui::{
@@ -24,7 +24,7 @@ impl GameSceneRed {
 }
 
 impl GameScene for GameSceneRed {
-    fn update(&mut self, global_state: &mut GlobalState) -> GameSceneTransition{
+    fn update(&mut self, global_state: &mut GameState) -> GameSceneTransition{
         global_state.counter += 1;
         if is_key_pressed(KeyCode::Space) {
             println!("[RED]: W key pressed from ");
@@ -33,7 +33,7 @@ impl GameScene for GameSceneRed {
         GameSceneTransition::NoSceneTransition
     }
 
-    fn draw(&self, global_state: &GlobalState) {
+    fn draw(&self, global_state: &GameState) {
         clear_background(LIGHTGRAY);
         draw_circle(self.x, self.y, 15.0, RED);
         draw_text(&format!("{}", global_state.counter), 50.0, 750.0, 400.0, DARKGRAY);

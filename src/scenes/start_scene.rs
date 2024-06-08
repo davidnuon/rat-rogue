@@ -4,7 +4,7 @@ use crate::scene_manager::{
 };
 use macroquad::prelude::*;
 
-use crate::game_state::GlobalState;
+use crate::game_state::GameState;
 
 pub struct FirstGameScene {
     x: f32,
@@ -21,7 +21,7 @@ impl FirstGameScene {
 }
 
 impl GameScene for FirstGameScene {
-    fn update(&mut self, global_state: &mut GlobalState) -> GameSceneTransition {
+    fn update(&mut self, global_state: &mut GameState) -> GameSceneTransition {
         global_state.counter += 1;
         
         if is_key_down(KeyCode::Right) {
@@ -45,7 +45,7 @@ impl GameScene for FirstGameScene {
         GameSceneTransition::NoSceneTransition
     }
 
-    fn draw(&self, _global_state: &GlobalState) {
+    fn draw(&self, _global_state: &GameState) {
         clear_background(LIGHTGRAY);
         draw_circle(self.x, self.y, 10.0, YELLOW);
         draw_text("move the ball with arrow keys", 20.0, 20.0, 20.0, DARKGRAY);

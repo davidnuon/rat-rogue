@@ -4,11 +4,11 @@ use crate::scenes::{
     GameSceneRed,
 };
 
-pub use crate::game_state::GlobalState;
+pub use crate::game_state::GameState;
 
 pub trait GameScene {
-    fn update(&mut self, global_state: &mut GlobalState) -> GameSceneTransition;
-    fn draw(&self, global_state: &GlobalState);
+    fn update(&mut self, global_state: &mut GameState) -> GameSceneTransition;
+    fn draw(&self, global_state: &GameState);
 }
 
 pub enum GameSceneTransition {
@@ -18,14 +18,14 @@ pub enum GameSceneTransition {
 
 pub struct GameSceneManager {
     current_scene: Option<Box<dyn GameScene>>,
-    state: GlobalState,
+    state: GameState,
 }
 
 impl GameSceneManager {
     pub fn new() -> Self {
         Self {
             current_scene: None,
-            state: GlobalState { counter: 0 },
+            state: GameState { counter: 0 },
         }
     }
 
@@ -58,12 +58,12 @@ impl GameSceneManager {
     }
 
     #[allow(dead_code)]
-    pub fn get_state(&self) -> &GlobalState {
+    pub fn get_state(&self) -> &GameState {
         &self.state
     }
 
     #[allow(dead_code)]
-    pub fn get_state_mut(&mut self) -> &mut GlobalState {
+    pub fn get_state_mut(&mut self) -> &mut GameState {
         &mut self.state
     }
 }

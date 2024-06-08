@@ -36,7 +36,7 @@ async fn main() {
         let screen_ratio = screen_size.x / screen_size.y;
         let render_target_ratio: f32 = view_size.x / view_size.y;
 
-        // Determin the scale of the rendered texture
+        // Determine the scale of the rendered texture
         let scale = if screen_ratio > render_target_ratio {
             screen_height() / view_size.y
         } else {
