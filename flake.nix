@@ -28,6 +28,7 @@
             cargo
             rustc
             cmake
+            evcxr
 
             libGL
             xorg.libX11
