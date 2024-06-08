@@ -18,7 +18,7 @@ async fn main() {
     loop {
         set_camera(&Camera2D {
             zoom: vec2(1.0/800., 1.0/600.),
-            target: vec2(0.0, 0.0),
+            target: vec2(800.0, 600.0),
             render_target: Some(render_target.clone()),
             // viewport: Some((0, 0, 800, 600)),
             ..Default::default()
