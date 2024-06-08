@@ -1,6 +1,6 @@
 use crate::scene_manager::{
     GameScene,
-    GameSceneTransition, GameState,
+    GameSceneTransition, GlobalState,
 };
 use macroquad::prelude::*;
 
@@ -10,8 +10,8 @@ pub struct FirstGameScene {
 }
 
 impl GameScene for FirstGameScene {
-    fn update(&mut self, game_state: &mut GameState) -> GameSceneTransition {
-        game_state.counter += 1;
+    fn update(&mut self, global_state: &mut GlobalState) -> GameSceneTransition {
+        global_state.counter += 1;
         
         if is_key_down(KeyCode::Right) {
             self.x += 1.0;

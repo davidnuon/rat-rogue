@@ -1,10 +1,15 @@
-use std::collections::HashMap;
-use crate::scenes::AvailebleScenes;
-pub struct GameState {
+use macroquad::window::screen_width;
+
+use crate::scenes::{
+    AvailebleScenes,
+    FirstGameScene,
+    GameSceneRed,
+};
+pub struct GlobalState {
     pub counter: i32,
 }
 pub trait GameScene {
-    fn update(&mut self, gamestate: &mut GameState) -> GameSceneTransition;
+    fn update(&mut self, global_state: &mut GlobalState) -> GameSceneTransition;
     fn draw(&self);
 }
 
@@ -14,30 +19,30 @@ pub enum GameSceneTransition {
 }
 
 pub struct GameSceneManager {
-    scenes: HashMap<AvailebleScenes, Box<dyn GameScene>>,
-    current_scene: AvailebleScenes,
-    state: GameState,
+    current_scene: Option<Box<dyn GameScene>>,
+    state: GlobalState,
 }
 
 impl GameSceneManager {
     pub fn new() -> Self {
         Self {
-            scenes: HashMap::new(),
-            current_scene: AvailebleScenes::NoScene,
-            state: GameState { counter: 0 },
+            current_scene: None,
+            state: GlobalState { counter: 0 },
         }
     }
 
-    pub fn add_scene(&mut self, name:AvailebleScenes, scene: Box<dyn GameScene>) {
-        self.scenes.insert(name, scene);
-    }
-
     pub fn set_scene(&mut self, index: AvailebleScenes) {
-        self.current_scene = index;
+        let x = screen_width() / 2.0;
+        let y = screen_width() / 2.0;
+
+        self.current_scene = match index {
+            AvailebleScenes::StartScene => Some(Box::new(FirstGameScene { x, y })),
+            AvailebleScenes::RedScene => Some(Box::new(GameSceneRed { x, y })),
+        };
     }
 
     pub fn update(&mut self) {
-        if let Some(scene) = self.scenes.get_mut(&self.current_scene) {
+        if let Some(scene) = self.current_scene.as_mut() {
             match scene.update(&mut self.state) {
                 GameSceneTransition::NextScene(index) => {
                     self.set_scene(index);
@@ -50,7 +55,7 @@ impl GameSceneManager {
     }
 
     pub fn draw(&self) {
-        if let Some(scene) = self.scenes.get(&self.current_scene) {
+        if let Some(scene) = self.current_scene.as_ref() {
             scene.draw();
         } else {
             panic!("Scene not found");
