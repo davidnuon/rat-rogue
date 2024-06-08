@@ -1,8 +1,10 @@
 use std::collections::HashMap;
 use crate::scenes::AvailebleScenes;
-
+pub struct GameState {
+    pub counter: i32,
+}
 pub trait GameScene {
-    fn update(&mut self) -> GameSceneTransition;
+    fn update(&mut self, gamestate: &mut GameState) -> GameSceneTransition;
     fn draw(&self);
 }
 
@@ -14,6 +16,7 @@ pub enum GameSceneTransition {
 pub struct GameSceneManager {
     scenes: HashMap<AvailebleScenes, Box<dyn GameScene>>,
     current_scene: AvailebleScenes,
+    state: GameState,
 }
 
 impl GameSceneManager {
@@ -21,6 +24,7 @@ impl GameSceneManager {
         Self {
             scenes: HashMap::new(),
             current_scene: AvailebleScenes::NoScene,
+            state: GameState { counter: 0 },
         }
     }
 
@@ -34,7 +38,7 @@ impl GameSceneManager {
 
     pub fn update(&mut self) {
         if let Some(scene) = self.scenes.get_mut(&self.current_scene) {
-            match scene.update() {
+            match scene.update(&mut self.state) {
                 GameSceneTransition::NextScene(index) => {
                     self.set_scene(index);
                 }
