@@ -35,7 +35,7 @@ impl GameScene for FirstGameScene {
         GameSceneTransition::NoSceneTransition
     }
 
-    fn draw(&self) {
+    fn draw(&self, global_state: &GlobalState) {
         clear_background(LIGHTGRAY);
         draw_circle(self.x, self.y, 15.0, YELLOW);
         draw_text("move the ball with arrow keys", 20.0, 20.0, 20.0, DARKGRAY);

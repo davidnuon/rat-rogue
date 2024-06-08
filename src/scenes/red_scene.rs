@@ -3,6 +3,11 @@ use crate::scene_manager::{
     GameSceneTransition, GlobalState,
 };
 use macroquad::prelude::*;
+use macroquad::ui::{
+    hash, root_ui,
+    widgets::{self, Group},
+    Drag, Ui,
+};
 
 pub struct GameSceneRed {
     pub x: f32,
@@ -11,22 +16,6 @@ pub struct GameSceneRed {
 
 impl GameScene for GameSceneRed {
     fn update(&mut self, global_state: &mut GlobalState) -> GameSceneTransition{
-        println!("GameSceneRed update {}", global_state.counter);
-        if is_key_down(KeyCode::Right) {
-            self.x += 1.0;
-        }
-        if is_key_down(KeyCode::Left) {
-            self.x -= 1.0;
-        }
-        if is_key_down(KeyCode::Down) {
-            self.y += 1.0;
-        }
-        if is_key_down(KeyCode::Up) {
-            self.y -= 1.0;
-        }
-        if is_key_down(KeyCode::Escape) {
-            std::process::exit(0);
-        }
         if is_key_pressed(KeyCode::W) {
             println!("[RED]: W key pressed from ");
             return GameSceneTransition::NextScene(crate::scenes::AvailebleScenes::StartScene);
@@ -34,9 +23,9 @@ impl GameScene for GameSceneRed {
         GameSceneTransition::NoSceneTransition
     }
 
-    fn draw(&self) {
+    fn draw(&self, global_state: &GlobalState) {
         clear_background(LIGHTGRAY);
         draw_circle(self.x, self.y, 15.0, RED);
-        draw_text("move the ball with arrow keys", 20.0, 20.0, 20.0, DARKGRAY);
+        draw_text(&format!("{}", global_state.counter), 20.0, 20.0, 20.0, DARKGRAY);
     }
 }

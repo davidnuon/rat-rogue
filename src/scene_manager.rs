@@ -10,7 +10,7 @@ pub struct GlobalState {
 }
 pub trait GameScene {
     fn update(&mut self, global_state: &mut GlobalState) -> GameSceneTransition;
-    fn draw(&self);
+    fn draw(&self, global_state: &GlobalState);
 }
 
 pub enum GameSceneTransition {
@@ -56,7 +56,7 @@ impl GameSceneManager {
 
     pub fn draw(&self) {
         if let Some(scene) = self.current_scene.as_ref() {
-            scene.draw();
+            scene.draw(&self.state);
         } else {
             panic!("Scene not found");
         }
