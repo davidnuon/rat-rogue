@@ -17,27 +17,32 @@ pub enum GameSceneTransition {
 }
 
 pub struct GameSceneManager {
-    current_scene: Option<Box<dyn GameScene>>,
+    scene_stack: Vec<Box<dyn GameScene>>,
     state: GameState,
 }
 
 impl GameSceneManager {
     pub fn new() -> Self {
         Self {
-            current_scene: None,
+            scene_stack: Vec::new(),
             state: GameState { counter: 0 },
         }
     }
 
     pub fn set_scene(&mut self, index: AvailebleScenes) {
-        self.current_scene = match index {
-            AvailebleScenes::StartScene => Some(Box::new(FirstGameScene::new())),
-            AvailebleScenes::RedScene => Some(Box::new(GameSceneRed::new())),
+        let next_scene: Box<dyn GameScene> = match index {
+            AvailebleScenes::StartScene => Box::new(FirstGameScene::new()),
+            AvailebleScenes::RedScene => Box::new(GameSceneRed::new()),
         };
+
+        if self.scene_stack.len() > 0 {
+            self.scene_stack.pop();
+        }
+        self.scene_stack.push(next_scene);
     }
 
     pub fn update(&mut self) {
-        if let Some(scene) = self.current_scene.as_mut() {
+        if let Some(scene) = self.scene_stack.last_mut() {
             match scene.update(&mut self.state) {
                 GameSceneTransition::NextScene(index) => {
                     self.set_scene(index);
@@ -50,7 +55,7 @@ impl GameSceneManager {
     }
 
     pub fn draw(&self) {
-        if let Some(scene) = self.current_scene.as_ref() {
+        if let Some(scene) = self.scene_stack.last() {
             scene.draw(&self.state);
         } else {
             panic!("Scene not found");
