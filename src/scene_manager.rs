@@ -26,7 +26,7 @@ impl GameSceneManager {
     pub fn new() -> Self {
         Self {
             scene_stack: Vec::new(),
-            state: GameState { counter: 0 },
+            state: GameState::new(),
         }
     }
 

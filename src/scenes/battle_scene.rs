@@ -22,7 +22,7 @@ impl BattleScene {
 impl GameScene for BattleScene {
     fn update(&mut self, global_state: &mut GameState) -> GameSceneTransition {
         global_state.counter += 1;
-        
+
         if is_key_down(KeyCode::Right) {
             self.x += 1.0;
         }
@@ -44,8 +44,14 @@ impl GameScene for BattleScene {
         GameSceneTransition::NoSceneTransition
     }
 
-    fn draw(&self, _global_state: &GameState) {
+    fn draw(&self, global_state: &GameState) {
         clear_background(LIGHTGRAY);
+
+        let rat_texture = global_state.textures.get("rat").unwrap();
+        let screen_texture = global_state.textures.get("screen").unwrap();
+        draw_texture(rat_texture, 0.0, 0.0, WHITE);
+        draw_texture(screen_texture, 0.0, 0.0, WHITE);
+
         draw_circle(self.x, self.y, 10.0, GREEN);
         draw_text("move the ball with arrow keys", 20.0, 20.0, 20.0, DARKGRAY);
     }
