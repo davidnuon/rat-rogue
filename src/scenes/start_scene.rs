@@ -42,6 +42,9 @@ impl GameScene for FirstGameScene {
         if is_key_pressed(KeyCode::W) {
             return GameSceneTransition::NextScene(crate::scenes::AvailebleScenes::RedScene);
         }
+        if is_key_pressed(KeyCode::E) {
+            return GameSceneTransition::NextScene(crate::scenes::AvailebleScenes::BattleScene);
+        }
         GameSceneTransition::NoSceneTransition
     }
 

@@ -2,6 +2,7 @@ use crate::scenes::{
     AvailebleScenes,
     FirstGameScene,
     GameSceneRed,
+    BattleScene,
 };
 
 pub use crate::game_state::GameState;
@@ -33,6 +34,7 @@ impl GameSceneManager {
         let next_scene: Box<dyn GameScene> = match index {
             AvailebleScenes::StartScene => Box::new(FirstGameScene::new()),
             AvailebleScenes::RedScene => Box::new(GameSceneRed::new()),
+            AvailebleScenes::BattleScene => Box::new(BattleScene::new()),
         };
 
         if self.scene_stack.len() > 0 {

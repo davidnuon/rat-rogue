@@ -1,14 +1,20 @@
+use macroquad::prelude::*;
+
 use crate::scene_manager::{
     GameScene,
     GameSceneTransition, GameState,
 };
 
-pub BattleScene {
-};
+pub struct BattleScene {
+    x: f32,
+    y: f32,
+}
 
 impl BattleScene {
     pub fn new() -> Self {
         Self {
+            x: 0.0,
+            y: 0.0,
         }
     }
 }
@@ -40,7 +46,7 @@ impl GameScene for BattleScene {
 
     fn draw(&self, _global_state: &GameState) {
         clear_background(LIGHTGRAY);
-        draw_circle(self.x, self.y, 10.0, YELLOW);
+        draw_circle(self.x, self.y, 10.0, GREEN);
         draw_text("move the ball with arrow keys", 20.0, 20.0, 20.0, DARKGRAY);
     }
 }
