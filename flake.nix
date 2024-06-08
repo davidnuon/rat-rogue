@@ -29,12 +29,6 @@
             rustc
             cmake
             evcxr
-
-            libGL
-            xorg.libX11
-            xorg.libXi
-            xorg.libXcursor
-            xorg.libXrandr
           ];
         };
       }
